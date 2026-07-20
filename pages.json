@@ -1,0 +1,68 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录页面"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "天津众和金融消保平台",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 50
+			}
+		},
+		{
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "工单详情"
+			}
+		},
+		{
+			"path": "pages/goToH5Page/goToH5Page",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/consumer/home",
+			"style": {
+				"navigationBarTitleText": "消费者首页"
+			}
+		},
+		{
+			"path": "pages/consumer/workList",
+			"style": {
+				"navigationBarTitleText": "调解工单",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 50
+			}
+		},
+		{
+			"path": "pages/consumer/workDetail",
+			"style": {
+				"navigationBarTitleText": "工单进度",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/consumer/public",
+			"style": {
+				"navigationBarTitleText": "众和公开"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "天津众和金融消保平台",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	}
+}
