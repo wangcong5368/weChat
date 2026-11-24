@@ -103,12 +103,23 @@
     <!-- <view class="title">投诉内容</view> -->
     <view class="title_Box" style="width: 100%;">
       <view style="color: #666666;flex:1">
+        消费投诉事由分类：
+      </view>
+      <view class="" style="flex:1">
+        {{ this.DEPT_TYPE.insuranceList.includes(this.wordContent.deptType) ?
+          (insuranceComplaintTypeList.get(wordContent.insuranceComplaintType) || ' ') :
+          (bankComplaintTypeList.get(this.wordContent.bankComplaintType) || ' ') }}
+      </view>
+    </view>
+    <!-- <view class="title">投诉内容</view> -->
+    <!-- <view class="title_Box" style="width: 100%;">
+      <view style="color: #666666;flex:1">
         投诉内容：
       </view>
       <view class="" style="flex:3">
         {{ wordContent.complaintContent == null ? '-' : wordContent.complaintContent }}
       </view>
-    </view>
+    </view> -->
     <!-- <view class="title_Box">
 			<view style="color: #666666;     width: 120px;">
 				机构所在地：
@@ -160,9 +171,12 @@
 
 <script>
 import { getToken } from '@/utils/auth'
+import { DEPT_TYPE } from '@/utils/mockData'
+
 export default {
   data() {
     return {
+      DEPT_TYPE: DEPT_TYPE,
       wordContent: {
         name: '',//消费者名字
         phone: '',//消费者联系方式
@@ -193,7 +207,15 @@ export default {
         {
           name: 'dept_type',
           listName: 'deptTypeList'
-        }
+        },
+        {
+          name: 'dm_insurance_complaint_type',
+          listName: 'insuranceComplaintTypeList'
+        },
+        {
+          name: 'dm_bank_complaint_type',
+          listName: 'bankComplaintTypeList'
+        },
       ],// 需要获取的字典name
       sysUserSexList: new Map(),//用户性别字典表
       certTypeList: new Map(),//证件类型字典表
@@ -202,6 +224,8 @@ export default {
       userPhone: uni.getStorageSync('userPhone'),//用户手机号
       signItemTepy: new Map([["consumer", "消费者告知书签字"], ["dept", "机构告知书签字"], ["mediator", "调解员告知书签字"], ["assistant", "助理调解员告知书签字"], ["zh", "众和告知书签字"]]),//e签宝人员签字操作字典
       signItemLookTepy: new Map([["consumer", "消费者告知书查看"], ["dept", "机构告知书查看"], ["mediator", "调解员告知书查看"], ["assistant", "助理调解员告知书查看"], ["zh", "众和告知书查看"]]),//e签宝人员查看操作字典
+      bankComplaintTypeList: new Map(),//争议事由类型字典表
+      insuranceComplaintTypeList: new Map(),//保险争议事由分类字典表
 
     }
   },
@@ -325,10 +349,16 @@ export default {
       const apiCall = hasToken
         ? this.$api.orgApi.getDisputeMediation(this.workOrderId)  // 有token调用机构接口
         : this.$api.main.getDisputeMediation(this.workOrderId);   // 无token调用微信接口
+      const expandServiceApi = hasToken
+        ? this.$api.orgApi.getDisputeMediationExpandInfo(this.workOrderId)  // 有token调用机构接口
+        : this.$api.main.getDisputeMediationExpandInfo(this.workOrderId);   // 无token调用微信接口
+
 
       apiCall.then(r => {
-        this.wordContent = r.data
-        console.log(r.data, "r.data");
+        expandServiceApi.then(res => {
+          this.wordContent = { ...res.data, ...r.data }
+          console.log(this.wordContent, "r.data");
+        })
 
         this.signItemList = r.data.sign.signItemList
         uni.hideLoading();
@@ -336,6 +366,7 @@ export default {
         uni.hideLoading();
       })
     },
+
   }
 }
 </script>

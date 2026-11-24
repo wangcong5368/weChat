@@ -1,9 +1,9 @@
 <template>
   <view class="page">
     <view class="tab-bar">
-      <view class="tab-item" :class="{ active: activeTab === 0 }" @tap="switchTab(0)">调解员信息</view>
+      <!-- <view class="tab-item" :class="{ active: activeTab === 0 }" @tap="switchTab(0)">调解员信息</view> -->
       <view class="tab-item" :class="{ active: activeTab === 1 }" @tap="switchTab(1)">条例库</view>
-      <view class="tab-indicator" :class="{ 'indicator-right': activeTab === 1 }"></view>
+      <!-- <view class="tab-indicator" :class="{ 'indicator-right': activeTab === 1 }"></view> -->
     </view>
 
     <!-- 调解员信息 -->
@@ -66,7 +66,7 @@ function buildStars(rating) {
 export default {
   data() {
     return {
-      activeTab: 0,
+      activeTab: 1,
       mediatorList: [],
       regulationList: []
     }

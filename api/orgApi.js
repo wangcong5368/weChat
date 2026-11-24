@@ -1,4 +1,5 @@
 import myHttp from "@/utils/request";
+import expandService from "@/utils/expandService";
 //纠纷业务api
 const orgApi = {
   // 机构/调解员获取纠纷业务列表
@@ -41,6 +42,14 @@ const orgApi = {
       method: "GET",
     });
   },
+  //获取纠纷业务扩展信息
+  getDisputeMediationExpandInfo(workOrderId) {
+    return expandService({
+      url: (`/project/disputeMediationExpand/getWorkOrderInfo/${workOrderId}`),
+      method: "GET",
+    });
+  },
+
 
   // 获取用户信息
   getUserInfo(data) {
